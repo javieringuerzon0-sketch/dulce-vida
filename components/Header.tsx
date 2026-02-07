@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[150] transition-all duration-300 ${isScrolled ? 'py-3 glass shadow-sm' : 'py-5 bg-transparent'
+      className={`fixed top-0 left-0 w-full z-[150] transition-all duration-300 ${isScrolled ? 'py-3 bg-brand-cream/95 shadow-sm md:glass' : 'py-5 bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">

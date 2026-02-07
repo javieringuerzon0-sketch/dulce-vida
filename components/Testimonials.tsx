@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import { LazyImage } from './LazyImage';
 
 export const Testimonials: React.FC = () => {
   const reviews = [
@@ -31,7 +32,7 @@ export const Testimonials: React.FC = () => {
   return (
     <section className="py-24 bg-brand-cream relative overflow-hidden">
       {/* Background patterns */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none hidden md:block">
         <div className="absolute top-10 left-10 w-64 h-64 bg-brand-teal/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-pink/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
@@ -60,7 +61,14 @@ export const Testimonials: React.FC = () => {
             >
               <div className="relative mb-8">
                 <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-brand-teal/20 group-hover:border-brand-teal transition-colors">
-                  <img src={r.avatar} alt={r.name} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform" />
+                  <LazyImage
+                    src={r.avatar}
+                    alt={r.name}
+                    width={150}
+                    height={150}
+                    rootMargin="400px 0px"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform"
+                  />
                 </div>
                 <div className="absolute -bottom-2 -right-2 bg-brand-teal text-white w-10 h-10 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
                   <Star size={16} fill="white" />

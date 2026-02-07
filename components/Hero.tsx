@@ -11,14 +11,14 @@ export const Hero: React.FC = () => {
           y: [0, -15, 0],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 -left-12 w-64 h-64 bg-brand-pink opacity-10 blur-[80px] rounded-full pointer-events-none"
+        className="absolute top-1/4 -left-12 w-64 h-64 bg-brand-pink opacity-10 blur-[80px] rounded-full pointer-events-none hidden md:block"
       />
       <motion.div
         animate={{
           y: [0, 15, 0],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/4 -right-12 w-96 h-96 bg-brand-teal opacity-5 blur-[100px] rounded-full pointer-events-none"
+        className="absolute bottom-1/4 -right-12 w-96 h-96 bg-brand-teal opacity-5 blur-[100px] rounded-full pointer-events-none hidden md:block"
       />
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12 z-10">
@@ -64,15 +64,17 @@ export const Hero: React.FC = () => {
               alt="Dulce Vida Premium"
               className="w-full h-[400px] md:h-[600px] object-cover"
               loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
           {/* Floating badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="absolute -bottom-6 -left-4 md:-left-6 z-20 bg-white/90 backdrop-blur-md p-4 md:p-6 rounded-2xl shadow-xl flex items-center space-x-4 border border-white/50"
-          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="absolute -bottom-6 -left-4 md:-left-6 z-20 bg-white/95 md:backdrop-blur-md p-4 md:p-6 rounded-2xl shadow-xl flex items-center space-x-4 border border-white/50"
+            >
             <div className="w-10 h-10 md:w-12 md:h-12 bg-yellow-400 rounded-full flex items-center justify-center text-xl md:text-2xl">✨</div>
             <div>
               <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Calidad</p>

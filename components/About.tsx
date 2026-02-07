@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Heart, Leaf } from 'lucide-react';
+import { LazyImage } from './LazyImage';
 
 export const About: React.FC = () => {
   const features = [
@@ -57,9 +58,12 @@ export const About: React.FC = () => {
           ))}
         </div>
         <div className="mt-20 rounded-[3rem] overflow-hidden shadow-2xl h-96">
-          <img
+          <LazyImage
             src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4a24ca43-8675-4698-b3ba-141817fdba05_3840w.jpg"
             alt="Nuestra Filosofía Dulce Vida"
+            width={1600}
+            height={900}
+            rootMargin="600px 0px"
             className="w-full h-full object-cover"
           />
         </div>

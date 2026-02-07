@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LazyImage } from './LazyImage';
 
 const moments = [
   { id: 1, img: '/assets/momentos/momento-1.jpg' },
@@ -46,11 +47,12 @@ export const Products: React.FC = () => {
             >
               <div className="bg-white p-2 rounded-[calc(1rem-2px)]">
                 <div className="aspect-[4/5] rounded-xl overflow-hidden relative bg-gray-100">
-                  <img
+                  <LazyImage
                     src={m.img}
                     alt={`Dulce Vida Momento ${m.id}`}
-                    loading="eager"
-                    decoding="async"
+                    width={800}
+                    height={1000}
+                    rootMargin="700px 0px"
                     className="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-500"
                     style={{
                       WebkitBackfaceVisibility: 'hidden',

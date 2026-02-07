@@ -23,6 +23,15 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+@media (max-width: 767px) {
+  .glass {
+    background: rgba(253, 247, 228, 0.98);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-teal to-brand-lavender;
 }
