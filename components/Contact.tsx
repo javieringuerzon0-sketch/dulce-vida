@@ -38,7 +38,7 @@ export const Contact: React.FC = () => {
                 { icon: <Clock className="text-brand-teal" />, label: "Horario", val: "Lunes a Domingo: 12 PM - 10 PM" }
               ].map((item, i) => (
                 <div key={i} className="flex items-start space-x-6 group">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-cream flex items-center justify-center group-hover:bg-brand-teal group-hover:text-white transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-cream flex items-center justify-center group-hover:bg-brand-dark group-hover:text-white transition-all">
                     {item.icon}
                   </div>
                   <div>
@@ -93,7 +93,7 @@ export const Contact: React.FC = () => {
                   placeholder="¿En qué podemos ayudarte?"
                 ></textarea>
               </div>
-              <button type="submit" className="w-full py-5 rounded-2xl bg-brand-dark text-white font-bold text-lg hover:bg-brand-teal transition-all shadow-xl hover:-translate-y-1">
+              <button type="submit" className="w-full py-5 rounded-2xl bg-brand-dark text-white font-bold text-lg hover:bg-brand-dark/90 transition-all shadow-xl hover:-translate-y-1">
                 Enviar por WhatsApp
               </button>
             </form>

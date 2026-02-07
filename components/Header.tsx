@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
             <a
               key={link.name}
               href={link.href}
-              className="text-xs font-black uppercase tracking-[0.2em] text-brand-dark/70 hover:text-brand-teal transition-all hover:-translate-y-0.5"
+              className="text-xs font-black uppercase tracking-[0.2em] text-brand-dark/70 hover:text-brand-dark transition-all hover:-translate-y-0.5"
             >
               {link.name}
             </a>
@@ -53,10 +53,10 @@ export const Header: React.FC = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-6">
-          <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2] hover:scale-110 transition-transform">
-            <Facebook size={20} fill="#1877F2" />
+          <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-brand-dark/40 hover:text-[#1877F2] hover:scale-110 transition-all">
+            <Facebook size={20} fill="currentColor" />
           </a>
-          <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E4405F] hover:scale-110 transition-transform">
+          <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-brand-dark/40 hover:text-[#E4405F] hover:scale-110 transition-all">
             <Instagram size={20} />
           </a>
           <a

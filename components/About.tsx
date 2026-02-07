@@ -48,9 +48,9 @@ export const About: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
-              className="p-10 rounded-[2rem] bg-brand-cream border border-transparent hover:border-brand-teal/20 transition-all hover:shadow-xl group"
+              className="p-10 rounded-[2rem] bg-brand-cream transition-all hover:shadow-xl group border border-transparent hover:border-brand-dark/10"
             >
-              <div className="mb-6 transform group-hover:scale-110 transition-transform">{f.icon}</div>
+              <div className="mb-6 transform transition-transform">{f.icon}</div>
               <h3 className="text-2xl font-bold mb-4">{f.title}</h3>
               <p className="text-gray-600 leading-relaxed">{f.desc}</p>
             </motion.div>
@@ -58,7 +58,7 @@ export const About: React.FC = () => {
         </div>
         <div className="mt-20 rounded-[3rem] overflow-hidden shadow-2xl h-96">
           <img
-            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c39217d1-a21f-43bf-8aec-cac050cb9e3d_3840w.webp"
+            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4a24ca43-8675-4698-b3ba-141817fdba05_3840w.jpg"
             alt="Nuestra Filosofía Dulce Vida"
             className="w-full h-full object-cover"
           />
