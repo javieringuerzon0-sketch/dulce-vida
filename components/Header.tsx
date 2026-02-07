@@ -36,19 +36,19 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? 'py-3 glass shadow-sm' : 'py-6 bg-transparent'
+      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? 'py-3 glass shadow-sm' : 'py-5 bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center space-x-3"
+          className="flex items-center space-x-2 md:space-x-3"
         >
-          <div className="w-10 h-10 bg-brand-teal rounded-full flex items-center justify-center text-white font-bold text-xl relative overflow-hidden ring-4 ring-white shadow-lg">
+          <div className="w-9 h-9 md:w-10 md:h-10 bg-brand-teal rounded-full flex items-center justify-center text-white font-bold text-lg md:xl relative overflow-hidden ring-2 md:ring-4 ring-white shadow-md">
             <span className="relative z-10">D</span>
           </div>
-          <span className="text-2xl font-black tracking-tighter text-brand-dark">DULCE VIDA</span>
+          <span className="text-xl md:text-2xl font-black tracking-tighter text-brand-dark">DULCE VIDA</span>
         </motion.div>
 
         {/* Desktop Nav */}

@@ -37,19 +37,19 @@ export const Products: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {moments.map((m, index) => (
             <motion.div
               key={m.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{
-                duration: 0.5,
-                delay: index * 0.1,
+                duration: 0.4,
+                delay: index * 0.05,
                 ease: "easeOut"
               }}
-              className="group relative p-1 rounded-2xl bg-gradient-to-br from-brand-teal/10 via-white to-brand-pink/10 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-white/50 will-change-auto"
+              className="group relative p-1 rounded-2xl bg-gradient-to-br from-brand-teal/10 via-white to-brand-pink/10 shadow-md hover:shadow-xl transition-all duration-300 border border-white/50 will-change-transform transform-gpu"
             >
               <div className="bg-white p-2 rounded-[calc(1rem-2px)]">
                 <div className="aspect-[4/5] rounded-xl overflow-hidden relative">
@@ -57,10 +57,9 @@ export const Products: React.FC = () => {
                     src={m.img}
                     alt={`Dulce Vida Momento ${m.id}`}
                     loading="lazy"
-                    className="w-full h-full object-cover"
-                    style={{ backfaceVisibility: 'hidden' }}
+                    className="w-full h-full object-cover transform transition-transform duration-700 md:group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/30 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/20 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
             </motion.div>

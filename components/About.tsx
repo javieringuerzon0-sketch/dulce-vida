@@ -40,17 +40,17 @@ export const About: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {features.map((f, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="p-10 rounded-[2rem] bg-brand-cream transition-all hover:shadow-xl group border border-transparent hover:border-brand-dark/10"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="p-8 md:p-10 rounded-[2rem] bg-brand-cream transition-all hover:shadow-xl group border border-transparent hover:border-brand-dark/10 transform-gpu"
             >
-              <div className="mb-6 transform transition-transform">{f.icon}</div>
+              <div className="mb-6 transform transition-transform group-hover:scale-110">{f.icon}</div>
               <h3 className="text-2xl font-bold mb-4">{f.title}</h3>
               <p className="text-gray-600 leading-relaxed">{f.desc}</p>
             </motion.div>

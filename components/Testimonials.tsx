@@ -48,16 +48,15 @@ export const Testimonials: React.FC = () => {
           <p className="text-gray-500 text-lg">Nuestra mayor recompensa es tu sonrisa.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {reviews.map((r, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2, duration: 0.8, type: "spring" }}
-              whileHover={{ y: -15, scale: 1.02 }}
-              className="p-10 rounded-[2.5rem] bg-white border border-brand-teal/5 shadow-xl shadow-brand-dark/5 flex flex-col items-center text-center group transition-all"
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="p-8 md:p-10 rounded-[2.5rem] bg-white border border-brand-teal/5 shadow-lg flex flex-col items-center text-center group transition-all transform-gpu"
             >
               <div className="relative mb-8">
                 <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-brand-teal/20 group-hover:border-brand-teal transition-colors">
