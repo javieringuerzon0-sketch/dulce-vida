@@ -15,6 +15,18 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { name: 'Inicio', href: '#inicio' },
     { name: 'Nosotros', href: '#nosotros' },
@@ -71,65 +83,95 @@ export const Header: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden p-2 text-brand-dark bg-white/50 rounded-xl backdrop-blur-md border border-white/50"
+          className="md:hidden p-3 text-brand-dark bg-white/50 rounded-xl backdrop-blur-md border border-white/50 hover:bg-white/70 active:bg-white/90 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 top-0 left-0 w-full h-screen bg-brand-cream/98 backdrop-blur-xl z-[90] flex flex-col items-center justify-center space-y-10 md:hidden"
-          >
-            <div className="flex flex-col items-center space-y-8">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-4xl font-black text-brand-dark hover:text-brand-teal transition-colors tracking-tighter"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-            </div>
-
+          <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex space-x-8 pt-8"
-            >
-              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2] hover:scale-110 transition-transform">
-                <Facebook size={32} fill="#1877F2" />
-              </a>
-              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E4405F] hover:scale-110 transition-transform">
-                <Instagram size={32} />
-              </a>
-            </motion.div>
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+              }}
+              className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm z-[110] md:hidden cursor-pointer"
+              aria-label="Cerrar menú"
+            />
 
-            <motion.a
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              href="https://wa.me/5215523175578"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-brand-teal text-white px-12 py-5 rounded-full text-xl font-black uppercase tracking-widest shadow-2xl"
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 w-[80%] max-w-sm h-screen bg-brand-cream z-[120] p-8 flex flex-col md:hidden shadow-2xl"
             >
-              Pide Ahora
-            </motion.a>
-          </motion.div>
+              <div className="flex justify-between items-center mb-16">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-brand-teal rounded-full flex items-center justify-center text-white font-bold">D</div>
+                  <span className="font-black text-brand-dark tracking-tighter">DULCE VIDA</span>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="p-3 bg-brand-dark/5 rounded-full hover:bg-brand-dark/10 active:bg-brand-dark/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  aria-label="Cerrar menú"
+                >
+                  <X size={24} className="text-brand-dark" />
+                </button>
+              </div>
+
+              <nav className="flex flex-col space-y-6 flex-1">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-3xl font-black text-brand-dark hover:text-brand-teal transition-colors"
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
+              </nav>
+
+              <div className="space-y-8 pt-8 border-t border-brand-dark/10">
+                <div className="flex space-x-6">
+                  <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2]">
+                    <Facebook size={24} fill="#1877F2" />
+                  </a>
+                  <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E4405F]">
+                    <Instagram size={24} />
+                  </a>
+                </div>
+
+                <a
+                  href="https://wa.me/5215523175578"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full bg-brand-teal text-white text-center py-5 rounded-2xl text-lg font-black uppercase tracking-widest shadow-xl"
+                >
+                  Pide Ahora
+                </a>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

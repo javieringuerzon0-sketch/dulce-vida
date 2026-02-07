@@ -38,6 +38,12 @@ body {
   @apply transition-transform duration-300 hover:-translate-y-1;
 }
 
+/* Touch Optimization */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Animations */
 @keyframes float {
   0% {
