@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? 'py-3 glass shadow-sm' : 'py-5 bg-transparent'
+      className={`fixed top-0 left-0 w-full z-[150] transition-all duration-300 ${isScrolled ? 'py-3 glass shadow-sm' : 'py-5 bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -87,7 +87,7 @@ export const Header: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden p-3 text-brand-dark bg-white/50 rounded-xl backdrop-blur-md border border-white/50 hover:bg-white/70 active:bg-white/90 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="md:hidden p-3 text-brand-dark bg-white/50 rounded-xl border border-white/50 active:bg-white/90 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center relative z-[160]"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
         >
@@ -99,14 +99,14 @@ export const Header: React.FC = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop - Solid color for better mobile performance */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={handleCloseMenu}
-              className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm z-[110] md:hidden"
+              className="fixed inset-0 bg-brand-dark/60 z-[150] md:hidden"
               aria-label="Cerrar menú"
             />
 
@@ -115,8 +115,8 @@ export const Header: React.FC = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: "tween", ease: "easeOut", duration: 0.25 }}
-              className="fixed top-0 right-0 w-[280px] h-screen bg-brand-cream z-[120] p-8 flex flex-col md:hidden shadow-2xl overflow-y-auto transform-gpu"
+              transition={{ type: "tween", ease: "circOut", duration: 0.3 }}
+              className="fixed top-0 right-0 w-[280px] h-screen bg-brand-cream z-[160] p-8 flex flex-col md:hidden shadow-2xl overflow-y-auto transform-gpu"
             >
               <div className="flex justify-between items-center mb-10">
                 <div className="flex items-center space-x-2">
@@ -132,23 +132,23 @@ export const Header: React.FC = () => {
                 </button>
               </div>
 
-              <nav className="flex flex-col space-y-5 flex-1 mt-4">
+              <nav className="flex flex-col space-y-4 flex-1 mt-4">
                 {navLinks.map((link, i) => (
                   <motion.a
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: 0.1 + (i * 0.05) }}
                     key={link.name}
                     href={link.href}
                     onClick={handleCloseMenu}
-                    className="text-2xl font-black text-brand-dark active:text-brand-teal transition-colors"
+                    className="text-2xl font-black text-brand-dark active:text-brand-teal py-2 transition-colors border-b border-brand-dark/5"
                   >
                     {link.name}
                   </motion.a>
                 ))}
               </nav>
 
-              <div className="space-y-6 pt-6 border-t border-brand-dark/10 mt-auto">
+              <div className="space-y-6 pt-6 mt-auto">
                 <div className="flex space-x-6 justify-center">
                   <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                     <Facebook size={24} className="text-[#1877F2]" fill="currentColor" />
