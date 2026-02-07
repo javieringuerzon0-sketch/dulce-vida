@@ -1,0 +1,7 @@
+{
+  "name": "Dulce Vida - Heladería Premium",
+  "description": "Una experiencia digital elegante y moderna para Heladería Dulce Vida, destacando su artesanía y sabores únicos con un diseño minimalista y animaciones fluidas.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
