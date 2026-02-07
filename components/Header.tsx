@@ -19,13 +19,23 @@ export const Header: React.FC = () => {
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
   }, [mobileMenuOpen]);
+
+  const handleCloseMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   const navLinks = [
     { name: 'Inicio', href: '#inicio' },
@@ -92,7 +102,7 @@ export const Header: React.FC = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {mobileMenuOpen && (
           <>
             {/* Backdrop */}
@@ -100,12 +110,9 @@ export const Header: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              onTouchEnd={(e) => {
-                e.preventDefault();
-                setMobileMenuOpen(false);
-              }}
-              className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm z-[110] md:hidden cursor-pointer"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              onClick={handleCloseMenu}
+              className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm z-[110] md:hidden"
               aria-label="Cerrar menú"
             />
 
@@ -114,21 +121,17 @@ export const Header: React.FC = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 w-[80%] max-w-sm h-screen bg-brand-cream z-[120] p-8 flex flex-col md:hidden shadow-2xl"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed top-0 right-0 w-[80%] max-w-sm h-screen bg-brand-cream z-[120] p-8 flex flex-col md:hidden shadow-2xl overflow-y-auto"
             >
-              <div className="flex justify-between items-center mb-16">
+              <div className="flex justify-between items-center mb-12">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 bg-brand-teal rounded-full flex items-center justify-center text-white font-bold">D</div>
                   <span className="font-black text-brand-dark tracking-tighter">DULCE VIDA</span>
                 </div>
                 <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  onTouchEnd={(e) => {
-                    e.preventDefault();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="p-3 bg-brand-dark/5 rounded-full hover:bg-brand-dark/10 active:bg-brand-dark/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  onClick={handleCloseMenu}
+                  className="p-3 bg-brand-dark/5 rounded-full active:bg-brand-dark/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
                   aria-label="Cerrar menú"
                 >
                   <X size={24} className="text-brand-dark" />
@@ -136,22 +139,19 @@ export const Header: React.FC = () => {
               </div>
 
               <nav className="flex flex-col space-y-6 flex-1">
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
+                {navLinks.map((link) => (
+                  <a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-3xl font-black text-brand-dark hover:text-brand-teal transition-colors"
+                    onClick={handleCloseMenu}
+                    className="text-3xl font-black text-brand-dark active:text-brand-teal transition-colors"
                   >
                     {link.name}
-                  </motion.a>
+                  </a>
                 ))}
               </nav>
 
-              <div className="space-y-8 pt-8 border-t border-brand-dark/10">
+              <div className="space-y-6 pt-8 border-t border-brand-dark/10">
                 <div className="flex space-x-6">
                   <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2]">
                     <Facebook size={24} fill="#1877F2" />
@@ -165,7 +165,7 @@ export const Header: React.FC = () => {
                   href="https://wa.me/5215523175578"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full bg-brand-teal text-white text-center py-5 rounded-2xl text-lg font-black uppercase tracking-widest shadow-xl"
+                  className="block w-full bg-brand-teal text-white text-center py-5 rounded-2xl text-lg font-black uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
                 >
                   Pide Ahora
                 </a>
