@@ -15,21 +15,15 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when mobile menu is open - Simplified for performance
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
     }
     return () => {
       document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
     };
   }, [mobileMenuOpen]);
 
@@ -102,7 +96,7 @@ export const Header: React.FC = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {mobileMenuOpen && (
           <>
             {/* Backdrop */}
@@ -110,7 +104,7 @@ export const Header: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.2 }}
               onClick={handleCloseMenu}
               className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm z-[110] md:hidden"
               aria-label="Cerrar menú"
@@ -121,43 +115,46 @@ export const Header: React.FC = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-0 right-0 w-[80%] max-w-sm h-screen bg-brand-cream z-[120] p-8 flex flex-col md:hidden shadow-2xl overflow-y-auto"
+              transition={{ type: "tween", ease: "easeOut", duration: 0.25 }}
+              className="fixed top-0 right-0 w-[280px] h-screen bg-brand-cream z-[120] p-8 flex flex-col md:hidden shadow-2xl overflow-y-auto transform-gpu"
             >
-              <div className="flex justify-between items-center mb-12">
+              <div className="flex justify-between items-center mb-10">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 bg-brand-teal rounded-full flex items-center justify-center text-white font-bold">D</div>
                   <span className="font-black text-brand-dark tracking-tighter">DULCE VIDA</span>
                 </div>
                 <button
                   onClick={handleCloseMenu}
-                  className="p-3 bg-brand-dark/5 rounded-full active:bg-brand-dark/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  className="p-2 bg-brand-dark/5 rounded-full active:bg-brand-dark/20 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
                   aria-label="Cerrar menú"
                 >
                   <X size={24} className="text-brand-dark" />
                 </button>
               </div>
 
-              <nav className="flex flex-col space-y-6 flex-1">
-                {navLinks.map((link) => (
-                  <a
+              <nav className="flex flex-col space-y-5 flex-1 mt-4">
+                {navLinks.map((link, i) => (
+                  <motion.a
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
                     key={link.name}
                     href={link.href}
                     onClick={handleCloseMenu}
-                    className="text-3xl font-black text-brand-dark active:text-brand-teal transition-colors"
+                    className="text-2xl font-black text-brand-dark active:text-brand-teal transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </motion.a>
                 ))}
               </nav>
 
-              <div className="space-y-6 pt-8 border-t border-brand-dark/10">
-                <div className="flex space-x-6">
-                  <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2]">
-                    <Facebook size={24} fill="#1877F2" />
+              <div className="space-y-6 pt-6 border-t border-brand-dark/10 mt-auto">
+                <div className="flex space-x-6 justify-center">
+                  <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <Facebook size={24} className="text-[#1877F2]" fill="currentColor" />
                   </a>
-                  <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E4405F]">
-                    <Instagram size={24} />
+                  <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <Instagram size={24} className="text-[#E4405F]" />
                   </a>
                 </div>
 
@@ -165,7 +162,7 @@ export const Header: React.FC = () => {
                   href="https://wa.me/5215523175578"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full bg-brand-teal text-white text-center py-5 rounded-2xl text-lg font-black uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
+                  className="block w-full bg-brand-teal text-white text-center py-4 rounded-xl text-base font-black uppercase tracking-widest shadow-lg active:scale-95 transition-transform"
                 >
                   Pide Ahora
                 </a>
