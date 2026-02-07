@@ -28,15 +28,52 @@ export const AIChat: React.FC = () => {
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
 
-        const userMsg = input.trim();
+        const userMsg = input.trim().toLowerCase();
         setInput('');
-        setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
+        setMessages(prev => [...prev, { role: 'user', content: input.trim() }]);
         setIsLoading(true);
 
+        // 1. Local Knowledge Base (Respuestas Integradas)
+        const knowledgeBase = [
+            {
+                keys: ['sabor', 'sabores', 'menu', 'menú', 'lista', 'tienen', 'venden'],
+                response: "¡Nuestros sabores son legendarios! 🍦 Tenemos una selección Premium:\n\n🇲🇽 **Mexicanos:** Mazapán de la Rosa, Gansito Especial, Cajeta con Nuez, Mamey Real, Zapote Negro, Arroz con Leche.\n\n🌍 **Internacionales:** Pistacho Siciliano, Chocolate Belga 70%, Vainilla de Papantla, Frutos del Bosque.\n\n¿Cuál te gustaría probar?"
+            },
+            {
+                keys: ['gansito', 'mazapan', 'mazapán', 'cajeta', 'mamey', 'pistacho', 'vainilla'],
+                response: "¡Esa es una excelente elección! ✨ Nuestros sabores como el Gansito Especial o el Mazapán son elaborados artesanalmente con ingredientes 100% naturales. Son los favoritos de la casa. ¿Te gustaría saber cómo pedirlos?"
+            },
+            {
+                keys: ['precio', 'costo', 'cuanto', 'cuánto', 'valen', 'barato'],
+                response: "Manejamos precios premium accesibles para la calidad artesanal que ofrecemos. 🍨 Para pedidos especiales o eventos, lo mejor es contactarnos por WhatsApp para darte un presupuesto exacto. ¿Te paso el contacto?"
+            },
+            {
+                keys: ['donde', 'dónde', 'ubicacion', 'ubicación', 'direccion', 'dirección', 'la paz'],
+                response: "Estamos ubicados en el corazón de La Paz: 📍 Paseo Álvaro Obregón #720 Int 1, Esterito. ¡Ven a visitarnos de 12 PM a 10 PM!"
+            },
+            {
+                keys: ['hola', 'buenos dias', 'buenas tardes', 'hey', 'que tal'],
+                response: "¡Hola! Bienvenido a Dulce Vida. Soy Gelat-IA, tu sommelier de helados. 🍦✨ ¿En qué puedo endulzar tu día hoy?"
+            }
+        ];
+
+        // Buscar respuesta en base local primero para velocidad
+        const localMatch = knowledgeBase.find(item => item.keys.some(key => userMsg.includes(key)));
+
+        if (localMatch) {
+            setTimeout(() => {
+                setMessages(prev => [...prev, { role: 'assistant', content: localMatch.response }]);
+                setIsLoading(false);
+            }, 500);
+            return;
+        }
+
+        // 2. Si no hay match local, intentar con Gemini
         try {
             const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
             if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
-                throw new Error('API Key not found or placeholder');
+                throw new Error('API Key Missing');
             }
 
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
@@ -45,45 +82,30 @@ export const AIChat: React.FC = () => {
                 body: JSON.stringify({
                     contents: [{
                         parts: [{
-                            text: `Eres Gelat-IA, un experto sommelier de helados premium de "Dulce Vida". 
-              Tu objetivo es recomendar sabores basados en el gusto del usuario, destacando nuestra herencia mexicana y calidad artesanal.
-              
-              MENÚ DE SABORES:
-              SABORES MEXICANOS:
-              - Mazapán de la Rosa (Cremoso y nostálgico)
-              - Gansito Especial (Con trozos de pastelito y mermelada)
-              - Cajeta de Celaya con Nuez de Castilla
-              - Mango con Chamoy y Chilito Tajín (Sorbete/Paleta)
-              - Mamey Real de Yucatán
-              - Zapote Negro con Naranja (Tradicional)
-              - Arroz con Leche y Canela de Ceilán
-              - Rompope Artesanal con Pasas al Licor
-              
-              SABORES INTERNACIONALES:
-              - Pistacho Siciliano Tostado (Gelato)
-              - Vainilla Bourbon de Papantla
-              - Chocolate Belga 70% Cacao
-              - Frutos del Bosque Silvestres (Sorbete)
-              - Coco Tostado del Pacífico
-              
-              INSTRUCCIONES:
-              1. Responde de forma amable, premium, sofisticada pero cercana.
-              2. Sé breve (máximo 2 párrafos). 
-              3. Usa emojis de helados y elementos mexicanos 🍦🇲🇽.
-              4. Si el usuario pide algo que no tenemos, sugiere lo más cercano.
-              
-              Usuario: ${userMsg}`
+                            text: `Eres Gelat-IA, sommelier de "Dulce Vida". 
+                            Menú: Mazapán, Gansito, Cajeta, Mamey, Zapote, Pistacho, Chocolate Belga.
+                            Responde breve y premium con emojis 🍦.
+                            Usuario: ${input.trim()}`
                         }]
                     }]
                 })
             });
 
             const data = await response.json();
-            const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "¡Lo siento! Mi mente se congeló un poco. ¿Podrías repetir eso? 🍦";
+            const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-            setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
+            if (aiResponse) {
+                setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
+            } else {
+                throw new Error('Invalid AI response');
+            }
         } catch (error) {
-            setMessages(prev => [...prev, { role: 'assistant', content: "Hubo un problema al conectar con mis sabores mágicos. Inténtalo de nuevo. 🍦" }]);
+            console.error('AI Error:', error);
+            // Fallback final si todo falla
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: "¡Hola! Mi conexión a la red de helados está fallando un poco, pero puedo decirte que nuestros sabores estrella hoy son el Mazapán de la Rosa y el Gansito Especial. 🍦🇲🇽 ¿Te gustaría que te comunique con un humano por WhatsApp?"
+            }]);
         } finally {
             setIsLoading(false);
         }

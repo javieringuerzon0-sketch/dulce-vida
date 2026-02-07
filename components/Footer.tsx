@@ -16,10 +16,10 @@ export const Footer: React.FC = () => {
               Dedicados a crear experiencias dulces inolvidables con ingredientes 100% naturales y procesos artesanales.
             </p>
             <div className="flex space-x-6">
-              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2] hover:scale-110 transition-transform">
-                <Facebook size={24} fill="#1877F2" />
+              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-brand-dark/40 hover:text-[#1877F2] hover:scale-110 transition-all">
+                <Facebook size={24} fill="currentColor" />
               </a>
-              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E4405F] hover:scale-110 transition-transform">
+              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-brand-dark/40 hover:text-[#E4405F] hover:scale-110 transition-all">
                 <Instagram size={24} />
               </a>
             </div>

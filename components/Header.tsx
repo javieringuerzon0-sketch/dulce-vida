@@ -110,10 +110,10 @@ export const Header: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="flex space-x-8 pt-8"
             >
-              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" className="text-[#1877F2]">
+              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2] hover:scale-110 transition-transform">
                 <Facebook size={32} fill="#1877F2" />
               </a>
-              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" className="text-[#E4405F]">
+              <a href="https://www.facebook.com/people/Dulce-Vida/61578794474172/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E4405F] hover:scale-110 transition-transform">
                 <Instagram size={32} />
               </a>
             </motion.div>
