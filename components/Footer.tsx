@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
         <div className="pt-8 border-t border-brand-teal/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
           <p>© 2024 Dulce Vida. Todos los derechos reservados.</p>
           <div className="flex items-center">
-            Hecho con <Heart size={14} className="mx-1 text-brand-pink fill-brand-pink" /> por <span className="text-brand-dark font-bold ml-1">Full Stack Studio</span>
+            Hecho con <Heart size={14} className="mx-1 text-brand-pink fill-brand-pink" /> por <span className="text-brand-dark font-bold ml-1">Nextwave IA</span>
           </div>
         </div>
       </div>
